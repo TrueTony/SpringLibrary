@@ -6,7 +6,7 @@ public class Book {
 
     private int id;
 
-    @NotEmpty(message = "Name should not be emoty")
+    @NotEmpty(message = "Name should not be empty")
     private String name;
 
     @NotEmpty(message = "Author should not be empty")

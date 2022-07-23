@@ -26,4 +26,6 @@ public class PeopleController {
         model.addAttribute("people", personDao.index());
         return "people/index";
     }
+
+
 }

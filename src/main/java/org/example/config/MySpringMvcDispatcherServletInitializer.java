@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 
 public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return null;
@@ -34,5 +33,4 @@ public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationC
         aContext.addFilter("hiddenHttpMethodFilter",
                 new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
     }
-
 }
