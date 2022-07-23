@@ -1,13 +1,13 @@
 package org.example.controllers;
 
 import org.example.dao.BookDao;
+import org.example.models.Book;
 import org.example.util.BookValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/books")
@@ -32,5 +32,17 @@ public class BooksController {
     public String profile(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDao.profile(id));
         return "books/profile";
+    }
+
+    @GetMapping("/new")
+    public String newBook(@ModelAttribute("book") Book book) {
+        return "books/new";
+    }
+
+    @PostMapping()
+    public String create(@ModelAttribute("book") Book book,
+                         BindingResult bindingResult) {
+        bookDao.save(book);
+        return "redirect:/books";
     }
 }

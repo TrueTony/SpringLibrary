@@ -28,4 +28,9 @@ public class BookDao {
                 new Object[]{id}, new BeanPropertyRowMapper<>(Book.class))
                 .stream().findAny().orElse(null);
     }
+
+    public void save(Book book) {
+        jdbcTemplate.update("insert into book(name, author, year) values(?, ?, ?)",
+                book.getName(), book.getAuthor(), book.getYear());
+    }
 }
