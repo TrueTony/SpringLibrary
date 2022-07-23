@@ -45,4 +45,17 @@ public class BooksController {
         bookDao.save(book);
         return "redirect:/books";
     }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("book", bookDao.profile(id));
+        return "books/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@PathVariable("id") int id, @ModelAttribute("book") Book book,
+                         BindingResult bindingResult, BookValidator bookValidator) {
+        bookDao.update(id, book);
+        return "redirect:/books";
+    }
 }

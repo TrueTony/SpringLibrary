@@ -12,7 +12,7 @@
 
 <hr>
 
-<a th:href="@{/books/{id}(id=${book.getId()})}">Изменить книгу</a>
+<a th:href="@{/books/{id}/edit(id=${book.getId()})}">Изменить книгу</a>
 
 <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
     <input type="submit" value="Удалить книгу">
