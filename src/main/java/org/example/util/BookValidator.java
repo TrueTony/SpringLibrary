@@ -1,25 +1,25 @@
 package org.example.util;
 
-import org.example.dao.PersonDao;
-import org.example.models.Person;
+import org.example.dao.BookDao;
+import org.example.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class PersonValidator implements Validator {
+public class BookValidator implements Validator {
 
-    public final PersonDao personDao;
+    private final BookDao bookDao;
 
     @Autowired
-    public PersonValidator(PersonDao personDao) {
-        this.personDao = personDao;
+    public BookValidator(BookDao bookDao) {
+        this.bookDao = bookDao;
     }
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Person.class.equals(clazz);
+        return Book.class.equals(clazz);
     }
 
     @Override
