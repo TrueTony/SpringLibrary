@@ -22,4 +22,10 @@ public class BookDao {
         return jdbcTemplate.query("select * from book",
                 new BeanPropertyRowMapper<>(Book.class));
     }
+
+    public Book profile(int id) {
+        return jdbcTemplate.query("select * from book where id=?",
+                new Object[]{id}, new BeanPropertyRowMapper<>(Book.class))
+                .stream().findAny().orElse(null);
+    }
 }
