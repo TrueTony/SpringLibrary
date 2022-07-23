@@ -22,4 +22,20 @@ public class PersonDao {
         return jdbcTemplate.query("select * from person",
                 new BeanPropertyRowMapper<>(Person.class));
     }
+
+    public Person profile(int id) {
+        return jdbcTemplate.query("select * from person where id=?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Person.class))
+                .stream().findAny().orElse(null);
+    }
+
+    public void save(Person person) {
+        jdbcTemplate.update("insert into person(fio, yearborn) values(?, ?)",
+                person.getFio(), person.getYearBorn());
+    }
+
+    public void update(int id, Person person) {
+        jdbcTemplate.update("update person set fio=?, yearborn=? where id=?",
+                person.getFio(), person.getYearBorn(), id);
+    }
 }
