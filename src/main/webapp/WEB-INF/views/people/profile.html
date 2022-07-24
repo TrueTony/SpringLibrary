@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title>Профиль</title>
 </head>
 <body>
 
@@ -12,10 +12,10 @@
 
 <hr>
 
-<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit person</a>
+<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Редактировать</a>
 
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
-  <input type="submit" value="Delete">
+  <input type="submit" value="Удалить">
 </form>
 
 </body>

@@ -24,6 +24,10 @@ public class PersonValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+        Person person = (Person) target;
 
+        if (personDao.profile(person.getFio()).isPresent()) {
+            errors.rejectValue("fio", "", "Это ФИО уже занято");
+        }
     }
 }

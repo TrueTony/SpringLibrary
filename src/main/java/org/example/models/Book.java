@@ -1,18 +1,18 @@
 package org.example.models;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class Book {
 
     private int id;
 
-    @NotEmpty(message = "Name should not be empty")
+    @NotEmpty(message = "Название не может быть пустым")
     private String name;
 
-    @NotEmpty(message = "Author should not be empty")
+    @NotEmpty(message = "Автор не может быть пустым")
     private String author;
 
-    @NotEmpty(message = "Year should not be empty")
     private int year;
 
     public Book() {}

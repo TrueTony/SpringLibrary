@@ -7,11 +7,10 @@ public class Person {
 
     private int id;
 
-    @NotEmpty(message = "Name should not be empty")
+    @NotEmpty(message = "Имя не должно быть пустое")
     private String fio;
 
-    @NotEmpty(message = "year born should not be empty")
-    @Min(value = 1900)
+    @Min(value = 1900, message = "Год рождения должен быть больше или равен 1900")
     private int yearBorn;
 
     public Person() {}

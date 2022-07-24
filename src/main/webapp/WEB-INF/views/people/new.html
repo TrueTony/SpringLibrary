@@ -2,21 +2,29 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New people</title>
+    <title>Новый человек</title>
 </head>
 <body>
 
 <form th:method="POST" th:action="@{/people}" th:object="${person}">
-    <label for="fio">Enter name</label>
+    <label for="fio">Введите ФИО</label>
     <input type="text" th:field="*{fio}" id="fio">
-    <!--    <div style="color: red" th:if="${#fields.hasErrors('fio'}" th:error="*{fio}">Error</div>-->
-    <br>
-    <label for="yearBorn">Birth year</label>
+    <div style="color: red" th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}">Error</div>
+    <br/>
+    <label for="yearBorn">Введите год рождения</label>
     <input type="text" th:field="*{yearBorn}" id="yearBorn">
-    <!--    <div style="color: red" th:if="${#field.hasErrors('yearBorn')}" th:error="*{yearBorn}">Error</div>-->
-    <br>
-    <input type="submit" value="Create">
+    <div style="color: red" th:if="${#fields.hasErrors('yearBorn')}" th:errors="*{yearBorn}">Error</div>
+    <br/>
+    <input type="submit" value="Создать">
 </form>
+
+<!--<form th:method="POST" th:action="@{/people}" th:object="${person}">-->
+<!--    <label for="fio">Enter name</label>-->
+<!--    <input type="text" th:field="*{fio}" id="fio">-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}">Error</div>-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Create!">-->
+<!--</form>-->
 
 </body>
 </html>
