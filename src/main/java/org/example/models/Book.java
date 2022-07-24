@@ -1,7 +1,6 @@
 package org.example.models;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 public class Book {
 
@@ -55,4 +54,5 @@ public class Book {
     public void setYear(int year) {
         this.year = year;
     }
+
 }

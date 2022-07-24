@@ -9,10 +9,11 @@
 <form th:method="POST" th:action="@{/books}" th:object="${book}">
     <label for="name">Название</label>
     <input type="text" th:field="*{name}" id="name">
-    <div style="color: red" th:if="$#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
     <br>
     <label for="author">Автор</label>
     <input type="text" th:field="*{author}" id="author">
+    <div style="color: red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Error</div>
     <br>
     <label for="year">Год написания</label>
     <input type="text" th:field="*{year}" id="year">

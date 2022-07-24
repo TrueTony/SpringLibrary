@@ -6,13 +6,25 @@
 </head>
 <body>
 
-<p th:text="${person.getFio()}">value</p>
-<p th:text="${person.getId()}">value</p>
-<p th:text="${person.getYearBorn()}">value</p>
+<p th:text="${person.getFio() + ', ' + person.getYearBorn()}">value</p>
+
+<div th:if="${books.size()}">
+    <p><b>Книги:</b></p>
+    <div th:each="book: ${books}">
+        <p th:href="@{books/{id}(id=${book.getId()})}"
+           th:text="${book.getName() + ', ' +  book.getAuthor() + ', ' + book.getYear()}">book</p>
+    </div>
+</div>
+<div th:unless="${books.size()}">
+    <p>Человек пока не взял ни одной книги</p>
+</div>
 
 <hr>
 
-<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Редактировать</a>
+
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+    <input type="submit" value="Редактировать">
+</form>
 
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
   <input type="submit" value="Удалить">

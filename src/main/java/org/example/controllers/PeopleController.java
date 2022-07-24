@@ -33,6 +33,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String profile(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDao.profile(id));
+        model.addAttribute("books", personDao.personBooks(id));
         return "people/profile";
     }
 
@@ -61,8 +62,12 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute("person") Person person,
-                         BindingResult bindingResult, PersonValidator personValidator) {
+    public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
+                         BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "people/edit";
+        }
         personDao.update(id, person);
         return "redirect:/people";
     }
