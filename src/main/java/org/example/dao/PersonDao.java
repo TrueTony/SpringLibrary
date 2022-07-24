@@ -38,4 +38,8 @@ public class PersonDao {
         jdbcTemplate.update("update person set fio=?, yearborn=? where id=?",
                 person.getFio(), person.getYearBorn(), id);
     }
+
+    public void delete(int id) {
+        jdbcTemplate.update("delete from person where id=?", id);
+    }
 }
