@@ -1,12 +1,14 @@
 package org.example.dao;
 
 import org.example.models.Book;
+import org.example.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BookDao {
@@ -41,5 +43,20 @@ public class BookDao {
 
     public void delete(int id) {
         jdbcTemplate.update("delete from book where id=?", id);
+    }
+
+    public Optional<Person> owner(int id) {
+        return jdbcTemplate.query("select * from person where id = (select person_id from book where id=?)",
+                        new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+                .stream().findAny();
+    }
+
+    public void deleteOwner(int id) {
+        jdbcTemplate.update("update book set person_id = null where id = ?", id);
+    }
+
+    public void setOwner(int id, Person person) {
+        jdbcTemplate.update("update book set person_id = ? where id = ?",
+                person.getId(), id);
     }
 }
