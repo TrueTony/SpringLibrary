@@ -52,7 +52,7 @@ public class PersonDao {
     }
 
     public List<Book> personBooks(int id) {
-        return jdbcTemplate.query("select book.* from book left join person p on book.person_id = p.id where p.id=?;",
+        return jdbcTemplate.query("select * from book where person_id=?;",
                 new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
     }
 }
