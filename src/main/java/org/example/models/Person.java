@@ -1,15 +1,23 @@
 package org.example.models;
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
+@Entity
+@Table(name = "Person")
 public class Person {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "fio")
     @NotEmpty(message = "Имя не должно быть пустое")
     private String fio;
 
+    @Column(name = "yearborn")
     @Min(value = 1900, message = "Год рождения должен быть больше или равен 1900")
     private int yearBorn;
 

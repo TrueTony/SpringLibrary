@@ -1,17 +1,26 @@
 package org.example.models;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+@Entity
+@Table(name = "book")
 public class Book {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "name")
     @NotEmpty(message = "Название не может быть пустым")
     private String name;
 
+    @Column(name = "author")
     @NotEmpty(message = "Автор не может быть пустым")
     private String author;
 
+    @Column(name = "year")
     private int year;
 
     public Book() {}
