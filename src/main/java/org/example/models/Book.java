@@ -12,9 +12,9 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "title")
     @NotEmpty(message = "Название не может быть пустым")
-    private String name;
+    private String title;
 
     @Column(name = "author")
     @NotEmpty(message = "Автор не может быть пустым")
@@ -25,9 +25,9 @@ public class Book {
 
     public Book() {}
 
-    public Book(int id, String name, String author, int year) {
+    public Book(int id, String title, String author, int year) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.author = author;
         this.year = year;
     }
@@ -40,12 +40,12 @@ public class Book {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     public String getAuthor() {

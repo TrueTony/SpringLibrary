@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">value</p>
+<p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">value</p>
 
 <div th:if="${owner}">
     <span>Книга сейчас у: </span> <span th:text="${owner.getFio()}">owner</span>

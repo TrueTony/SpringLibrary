@@ -7,8 +7,8 @@
 <body>
 
 <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
-    <label for="name">Название</label>
-    <input type="text" th:field="*{name}" id="name">
+    <label for="title">Название</label>
+    <input type="text" th:field="*{title}" id="title">
     <br>
     <label for="author">Автор</label>
     <input type="text" th:field="*{author}" id="author">
