@@ -27,8 +27,7 @@ public class Person {
 
     public Person() {}
 
-    public Person(int id, String fio, int yearBorn) {
-        this.id = id;
+    public Person(String fio, int yearBorn) {
         this.fio = fio;
         this.yearBorn = yearBorn;
     }

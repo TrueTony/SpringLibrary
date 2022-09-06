@@ -57,6 +57,8 @@ private final PeopleRepository peopleRepository;
         }
     }
 
-
+    public Optional<Person> findPersonByFio(String fio) {
+        return peopleRepository.findPersonByFio(fio);
+    }
 
 }

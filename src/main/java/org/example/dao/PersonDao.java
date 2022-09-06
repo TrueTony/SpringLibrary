@@ -19,40 +19,4 @@ public class PersonDao {
     public PersonDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-    public List<Person> index() {
-        return jdbcTemplate.query("select * from person",
-                new BeanPropertyRowMapper<>(Person.class));
-    }
-
-    public Person profile(int id) {
-        return jdbcTemplate.query("select * from person where id=?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Person.class))
-                .stream().findAny().orElse(null);
-    }
-
-    public Optional<Person> profile(String fio) {
-         return jdbcTemplate.query("select * from person where fio=?", new Object[]{fio},
-                 new BeanPropertyRowMapper<>(Person.class))
-                 .stream().findAny();
-    }
-
-    public void save(Person person) {
-        jdbcTemplate.update("insert into person(fio, yearborn) values(?, ?)",
-                person.getFio(), person.getYearBorn());
-    }
-
-    public void update(int id, Person person) {
-        jdbcTemplate.update("update person set fio=?, yearborn=? where id=?",
-                person.getFio(), person.getYearBorn(), id);
-    }
-
-    public void delete(int id) {
-        jdbcTemplate.update("delete from person where id=?", id);
-    }
-
-    public List<Book> personBooks(int id) {
-        return jdbcTemplate.query("select * from book where person_id=?;",
-                new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
-    }
 }

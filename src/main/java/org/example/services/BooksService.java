@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,19 +49,18 @@ public class BooksService {
         booksRepository.deleteById(id);
     }
 
-//    public List<Book> findByOwner(Person owner) {
-//        return booksRepository.findByOwner(owner);
-//    }
-
     public Optional<Person> findOwnerById(int id) {
-        return peopleRepository.findById(id);
+        return booksRepository.findById(id).map(value -> Optional.ofNullable(value.getOwner())).orElse(null);
     }
 
-//    public void deleteOwner(int id) {
-//        Optional<Book> book = booksRepository.findById(id);
-//        if (book.isPresent()) {
-//            book.get().setOwner(null);
-//            booksRepository.update(book, id);
-//        }
-//    }
+    @Transactional
+    public void setOwner(int id, Person owner) {
+        booksRepository.findById(id).ifPresent(book -> book.setOwner(owner));
+    }
+
+    @Transactional
+    public void deleteOwner(int id) {
+        Optional<Book> book = booksRepository.findById(id);
+        book.ifPresent(value -> value.setOwner(null));
+    }
 }

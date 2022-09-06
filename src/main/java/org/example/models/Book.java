@@ -29,8 +29,7 @@ public class Book {
 
     public Book() {}
 
-    public Book(int id, String title, String author, int year) {
-        this.id = id;
+    public Book(String title, String author, int year) {
         this.title = title;
         this.author = author;
         this.year = year;

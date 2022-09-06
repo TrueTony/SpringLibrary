@@ -1,7 +1,5 @@
 package org.example.controllers;
 
-import org.example.dao.BookDao;
-import org.example.dao.PersonDao;
 import org.example.models.Book;
 import org.example.models.Person;
 import org.example.services.BooksService;
@@ -19,17 +17,13 @@ import java.util.Optional;
 @RequestMapping("/books")
 public class BooksController {
 
-    private final BookDao bookDao;
     private final BooksService booksService;
     private final PeopleService peopleService;
-    private final PersonDao personDao;
 
     @Autowired
-    public BooksController(BookDao bookDao, BooksService booksService, PeopleService peopleService, PersonDao personDao) {
-        this.bookDao = bookDao;
+    public BooksController(BooksService booksService, PeopleService peopleService) {
         this.booksService = booksService;
         this.peopleService = peopleService;
-        this.personDao = personDao;
     }
 
     @GetMapping()
@@ -54,14 +48,14 @@ public class BooksController {
 
     @PatchMapping("/{id}/release")
     public String deleteOwner(@PathVariable("id") int id) {
-//        booksService.deleteOwner(id);
+        booksService.deleteOwner(id);
         return "redirect:/books/" + id;
     }
 
     @PatchMapping("/{id}/setOwner")
     public String setOwner(@PathVariable("id") int id,
                            @ModelAttribute("person") Person person) {
-        bookDao.setOwner(id, person);
+        booksService.setOwner(id, person);
         return "redirect:/books/" + id;
     }
 
