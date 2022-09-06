@@ -5,6 +5,7 @@ import org.example.dao.PersonDao;
 import org.example.models.Book;
 import org.example.models.Person;
 import org.example.services.BooksService;
+import org.example.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,12 +21,14 @@ public class BooksController {
 
     private final BookDao bookDao;
     private final BooksService booksService;
+    private final PeopleService peopleService;
     private final PersonDao personDao;
 
     @Autowired
-    public BooksController(BookDao bookDao, BooksService booksService, PersonDao personDao) {
+    public BooksController(BookDao bookDao, BooksService booksService, PeopleService peopleService, PersonDao personDao) {
         this.bookDao = bookDao;
         this.booksService = booksService;
+        this.peopleService = peopleService;
         this.personDao = personDao;
     }
 
@@ -40,18 +43,18 @@ public class BooksController {
                           @ModelAttribute("person") Person person) {
         model.addAttribute("book", booksService.findOne(id));
 
-        Optional<Person> owner = bookDao.owner(id);
+        Optional<Person> owner = booksService.findOwnerById(id);
         if (owner.isPresent()) {
             model.addAttribute("owner", owner.get());
         } else {
-            model.addAttribute("people", personDao.index());
+            model.addAttribute("people", peopleService.findAll());
         }
         return "books/profile";
     }
 
     @PatchMapping("/{id}/release")
     public String deleteOwner(@PathVariable("id") int id) {
-        bookDao.deleteOwner(id);
+//        booksService.deleteOwner(id);
         return "redirect:/books/" + id;
     }
 

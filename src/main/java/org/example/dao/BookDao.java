@@ -32,12 +32,12 @@ public class BookDao {
     }
 
     public void save(Book book) {
-        jdbcTemplate.update("insert into book(name, author, year) values(?, ?, ?)",
+        jdbcTemplate.update("insert into book(title, author, year) values(?, ?, ?)",
                 book.getTitle(), book.getAuthor(), book.getYear());
     }
 
     public void update(int id, Book book) {
-        jdbcTemplate.update("update book set name=?, author=?, year=? where id=?",
+        jdbcTemplate.update("update book set title=?, author=?, year=? where id=?",
                 book.getTitle(), book.getAuthor(), book.getYear(), id);
     }
 

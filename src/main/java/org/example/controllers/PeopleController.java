@@ -1,9 +1,12 @@
 package org.example.controllers;
 
 import org.example.dao.PersonDao;
+import org.example.models.Book;
 import org.example.models.Person;
+import org.example.services.BooksService;
 import org.example.services.PeopleService;
 import org.example.util.PersonValidator;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,18 +14,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
 
-    private final PersonDao personDao;
     private final PeopleService peopleService;
     private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonDao personDao, PeopleService peopleService, PersonValidator personValidator) {
-        this.personDao = personDao;
+    public PeopleController(PeopleService peopleService, PersonValidator personValidator) {
         this.peopleService = peopleService;
         this.personValidator = personValidator;
     }
@@ -36,7 +39,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String profile(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", peopleService.findOne(id));
-        model.addAttribute("books", personDao.personBooks(id));
+        model.addAttribute("books", peopleService.getBookByPersonId(id));
         return "people/profile";
     }
 

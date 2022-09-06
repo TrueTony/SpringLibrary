@@ -3,6 +3,7 @@ package org.example.models;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Table(name = "Person")
@@ -20,6 +21,9 @@ public class Person {
     @Column(name = "yearborn")
     @Min(value = 1900, message = "Год рождения должен быть больше или равен 1900")
     private int yearBorn;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
 
     public Person() {}
 
@@ -51,5 +55,13 @@ public class Person {
 
     public void setYearBorn(int yearBorn) {
         this.yearBorn = yearBorn;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
