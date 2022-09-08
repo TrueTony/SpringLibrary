@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,8 +28,18 @@ public class BooksController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("books", booksService.findAll());
+    public String index(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int books_per_page,
+            @RequestParam(defaultValue = "false") String sort_by_year,
+            Model model) {
+
+        List<Book> booksByPag = booksService.findAllWithPage(page, books_per_page, sort_by_year);
+        if (booksByPag.isEmpty()) {
+        model.addAttribute("books", booksService.findAll(sort_by_year));
+        } else {
+            model.addAttribute("books", booksByPag);
+        }
         return "books/index";
     }
 
