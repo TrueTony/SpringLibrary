@@ -77,4 +77,8 @@ public class BooksService {
         Optional<Book> book = booksRepository.findById(id);
         book.ifPresent(value -> value.setOwner(null));
     }
+
+    public List<Book> findByName(String title) {
+        return booksRepository.findByTitleStartingWith(title);
+    }
 }
