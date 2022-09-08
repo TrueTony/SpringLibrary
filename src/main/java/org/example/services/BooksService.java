@@ -3,14 +3,14 @@ package org.example.services;
 import org.example.models.Book;
 import org.example.models.Person;
 import org.example.repositories.BooksRepository;
-import org.example.repositories.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +19,10 @@ import java.util.Optional;
 public class BooksService {
 
     private final BooksRepository booksRepository;
-    private final PeopleRepository peopleRepository;
 
     @Autowired
-    public BooksService(BooksRepository booksRepository, PeopleRepository peopleRepository) {
+    public BooksService(BooksRepository booksRepository) {
         this.booksRepository = booksRepository;
-        this.peopleRepository = peopleRepository;
     }
 
     public List<Book> findAll(String sortByYear) {
@@ -69,13 +67,20 @@ public class BooksService {
 
     @Transactional
     public void setOwner(int id, Person owner) {
-        booksRepository.findById(id).ifPresent(book -> book.setOwner(owner));
+        Optional<Book> book = booksRepository.findById(id);
+        if (book.isPresent()) {
+            book.get().setTook(new Timestamp(new Date().getTime()));
+            book.get().setOwner(owner);
+        }
     }
 
     @Transactional
     public void deleteOwner(int id) {
         Optional<Book> book = booksRepository.findById(id);
-        book.ifPresent(value -> value.setOwner(null));
+        if (book.isPresent()) {
+            book.get().setTook(null);
+            book.get().setOwner(null);
+        }
     }
 
     public List<Book> findByName(String title) {

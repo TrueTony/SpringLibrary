@@ -2,6 +2,7 @@ package org.example.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Date;
 
 @Entity
 @Table(name = "book")
@@ -26,6 +27,13 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person owner;
+
+    @Column(name = "took")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date took;
+
+    @Transient
+    private boolean expired;
 
     public Book() {}
 
@@ -73,5 +81,21 @@ public class Book {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    public Date getTook() {
+        return took;
+    }
+
+    public void setTook(Date took) {
+        this.took = took;
+    }
+
+    public boolean getExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 }

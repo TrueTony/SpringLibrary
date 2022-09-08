@@ -11,7 +11,7 @@
 <div th:if="${books.size()}">
     <p><b>Книги:</b></p>
     <div th:each="book: ${books}">
-        <p th:href="@{books/{id}(id=${book.getId()})}"
+        <p th:style="${book.getExpired()} ? 'color: red' : 'color: black'" th:href="@{books/{id}(id=${book.getId()})}"
            th:text="${book.getTitle() + ', ' +  book.getAuthor() + ', ' + book.getYear()}">book</p>
     </div>
 </div>
@@ -20,7 +20,6 @@
 </div>
 
 <hr>
-
 
 <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
     <input type="submit" value="Редактировать">

@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional(readOnly = true)
@@ -51,7 +53,12 @@ private final PeopleRepository peopleRepository;
         Optional<Person> person = peopleRepository.findById(id);
         if (person.isPresent()) {
             Hibernate.initialize(person.get().getBooks());
-            return person.get().getBooks();
+            List <Book> books = person.get().getBooks();
+            long today = new Date().getTime();
+            for (Book book: books) {
+                book.setExpired(TimeUnit.MILLISECONDS.toDays(today - book.getTook().getTime()) > 10);
+            }
+            return books;
         } else {
             return Collections.emptyList();
         }
