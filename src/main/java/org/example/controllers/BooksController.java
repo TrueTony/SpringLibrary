@@ -29,14 +29,14 @@ public class BooksController {
 
     @GetMapping()
     public String index(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int books_per_page,
-            @RequestParam(defaultValue = "false") String sort_by_year,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "books_per_page", defaultValue = "10") int booksPerPage,
+            @RequestParam(value = "sort_by_year", required = false) boolean sortByYear,
             Model model) {
 
-        List<Book> booksByPag = booksService.findAllWithPage(page, books_per_page, sort_by_year);
+        List<Book> booksByPag = booksService.findAllWithPage(page, booksPerPage, sortByYear);
         if (booksByPag.isEmpty()) {
-        model.addAttribute("books", booksService.findAll(sort_by_year));
+            model.addAttribute("books", booksService.findAll(sortByYear));
         } else {
             model.addAttribute("books", booksByPag);
         }

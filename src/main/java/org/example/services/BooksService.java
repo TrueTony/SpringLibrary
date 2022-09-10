@@ -25,16 +25,16 @@ public class BooksService {
         this.booksRepository = booksRepository;
     }
 
-    public List<Book> findAll(String sortByYear) {
-        if ("true".equals(sortByYear)) {
+    public List<Book> findAll(boolean sortByYear) {
+        if (sortByYear) {
             return booksRepository.findAll(Sort.by("year"));
         } else {
             return booksRepository.findAll();
         }
     }
 
-    public List<Book> findAllWithPage(int page, int booksPerPage, String sortByYear) {
-        if ("true".equals(sortByYear)) {
+    public List<Book> findAllWithPage(int page, int booksPerPage, boolean sortByYear) {
+        if (sortByYear) {
             return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("year"))).getContent();
         } else {
             return booksRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
@@ -53,6 +53,7 @@ public class BooksService {
     @Transactional
     public void update(Book updatedBook, int id) {
         updatedBook.setId(id);
+        updatedBook.setOwner(updatedBook.getOwner());
         booksRepository.save(updatedBook);
     }
 
@@ -62,7 +63,7 @@ public class BooksService {
     }
 
     public Optional<Person> findOwnerById(int id) {
-        return booksRepository.findById(id).map(value -> Optional.ofNullable(value.getOwner())).orElse(null);
+        return booksRepository.findById(id).map(Book::getOwner);
     }
 
     @Transactional
